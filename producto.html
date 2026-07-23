@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nombre Marca | Vista de producto</title>
+  <meta name="description" content="Detalle de producto con navegacion por ancla para multiples referencias.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            noir: '#171315',
+            rouge: '#8F243C',
+            ivoire: '#F1E9E2',
+            gris: '#D7C8BC'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-ivoire text-noir font-sans antialiased">
+  <header class="border-b border-gris/60 bg-ivoire/95">
+    <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 md:px-10">
+      <a href="home.html" class="font-serif text-2xl uppercase tracking-[0.2em] text-noir">Nombre Marca</a>
+      <nav aria-label="Navegacion principal">
+        <ul class="flex items-center gap-6 text-xs uppercase tracking-widest">
+          <li><a href="home.html" class="transition-colors hover:text-rouge">Home</a></li>
+          <li><a href="catalogo.html" class="transition-colors hover:text-rouge">Catalogo</a></li>
+          <li><a href="carrito.html" class="transition-colors hover:text-rouge">Carrito</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-6 py-10 md:px-10 md:py-14">
+    <section class="grid gap-10 md:grid-cols-[1.15fr_1fr]" aria-labelledby="producto-titulo">
+      <div class="space-y-4">
+        <div class="aspect-[4/5] overflow-hidden border border-gris/40 bg-gris/30">
+          <img id="producto-imagen" src="" alt="Imagen del producto" class="h-full w-full object-cover">
+        </div>
+        <div class="grid grid-cols-3 gap-3" id="miniaturas"></div>
+      </div>
+
+      <div class="space-y-6">
+        <p class="text-xs uppercase tracking-widest text-rouge" id="producto-categoria">Categoria</p>
+        <h1 id="producto-titulo" class="font-serif text-4xl leading-tight">Producto</h1>
+
+        <dl class="space-y-4 border-y border-gris/50 py-5 text-sm">
+          <div class="flex items-center justify-between gap-5">
+            <dt class="uppercase tracking-widest text-noir/55">Codigo</dt>
+            <dd id="producto-codigo" class="font-medium text-noir">PRD-000</dd>
+          </div>
+          <div class="flex items-center justify-between gap-5">
+            <dt class="uppercase tracking-widest text-noir/55">Talla</dt>
+            <dd>
+              <div class="flex flex-wrap justify-end gap-2" id="tallas"></div>
+            </dd>
+          </div>
+          <div class="flex items-center justify-between gap-5">
+            <dt class="uppercase tracking-widest text-noir/55">Precio</dt>
+            <dd id="producto-precio" class="text-lg font-medium text-noir">0,00 EUR</dd>
+          </div>
+          <div class="flex items-center justify-between gap-5">
+            <dt class="uppercase tracking-widest text-noir/55">Cantidad</dt>
+            <dd>
+              <input
+                id="cantidad"
+                name="cantidad"
+                type="number"
+                min="1"
+                value="1"
+                class="w-20 border border-gris/70 bg-white px-3 py-2 text-center text-sm text-noir focus:border-rouge focus:outline-none"
+                aria-label="Cantidad de producto"
+              >
+            </dd>
+          </div>
+        </dl>
+
+        <button id="btn-carrito" type="button" class="w-full bg-noir px-8 py-3 text-xs uppercase tracking-widest text-ivoire transition-colors hover:bg-rouge">
+          Añadir al carrito
+        </button>
+
+        <div class="rounded-sm border border-gris/60 bg-white p-5">
+          <h2 class="mb-3 font-serif text-2xl">Navegar entre productos</h2>
+          <p class="mb-4 text-sm text-noir/70">
+            Esta vista soporta URLs con ancla para abrir cualquier referencia, por ejemplo:
+            <span class="font-medium text-noir">/producto.html#producto-201</span>
+          </p>
+          <div class="grid grid-cols-2 gap-2 text-sm" id="lista-enlaces"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-10 border-t border-gris/60 pt-10" aria-labelledby="descripcion-heading">
+      <h2 id="descripcion-heading" class="mb-4 font-serif text-3xl text-noir">Descripcion</h2>
+      <p id="producto-descripcion" class="max-w-3xl text-sm leading-7 text-noir/75">
+        Descripcion del producto.
+      </p>
+    </section>
+  </main>
+
+  <section class="mx-auto max-w-7xl border-t border-gris/60 px-6 py-12 md:px-10">
+    <div class="mb-8 flex items-baseline gap-4">
+      <span class="text-xs uppercase tracking-widest text-rouge">Relacionados</span>
+      <h2 class="font-serif text-3xl">Mas productos</h2>
+    </div>
+    <div class="grid grid-cols-2 gap-6 md:grid-cols-4" id="rejilla-productos"></div>
+  </section>
+
+  <footer class="border-t border-gris/50 bg-noir text-ivoire">
+    <div class="mx-auto grid max-w-7xl gap-10 px-6 py-12 md:grid-cols-3 md:px-10">
+      <div>
+        <h3 class="mb-3 font-serif text-xl">Nombre Marca</h3>
+        <p class="text-sm text-ivoire/70">Moda editorial para hombre y mujer.</p>
+      </div>
+      <div>
+        <h3 class="mb-3 font-serif text-xl">Enlaces</h3>
+        <ul class="space-y-2 text-sm text-ivoire/75">
+          <li><a href="home.html" class="transition-colors hover:text-rouge">Home</a></li>
+          <li><a href="catalogo.html" class="transition-colors hover:text-rouge">Catalogo</a></li>
+          <li><a href="carrito.html" class="transition-colors hover:text-rouge">Carrito</a></li>
+          <li><a href="checkout.html" class="transition-colors hover:text-rouge">Checkout</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="mb-3 font-serif text-xl">Contacto</h3>
+        <p class="text-sm text-ivoire/70">contacto@nombremarca.com</p>
+        <p class="text-sm text-ivoire/70">+33 1 00 00 00 00</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const productos = [
+      {
+        id: 'producto-101',
+        nombre: 'Camisa lino blanca',
+        categoria: 'Hombre / Camisas',
+        precio: '59,00 EUR',
+        imagen: 'assets/img/producto-101.jpg',
+        descripcion: 'Camisa fresca de lino con corte regular y botonadura nacarada.',
+        tallas: ['S', 'M', 'L', 'XL']
+      },
+      {
+        id: 'producto-102',
+        nombre: 'Pantalon chino beige',
+        categoria: 'Hombre / Pantalones',
+        precio: '69,00 EUR',
+        imagen: 'assets/img/producto-102.jpg',
+        descripcion: 'Pantalon chino de tiro medio con tejido elastico y pinza suave.',
+        tallas: ['38', '40', '42', '44']
+      },
+      {
+        id: 'producto-103',
+        nombre: 'Vestido midi verde',
+        categoria: 'Mujer / Vestidos',
+        precio: '79,00 EUR',
+        imagen: 'assets/img/producto-103.jpg',
+        descripcion: 'Vestido midi fluido con escote cruzado y caida ligera.',
+        tallas: ['XS', 'S', 'M', 'L']
+      },
+      {
+        id: 'producto-104',
+        nombre: 'Zapatillas urbanas negras',
+        categoria: 'Unisex / Calzado',
+        precio: '89,00 EUR',
+        imagen: 'assets/img/producto-104.jpg',
+        descripcion: 'Zapatillas urbanas de piel sintetica con suela ligera.',
+        tallas: ['39', '40', '41', '42', '43']
+      },
+      {
+        id: 'producto-201',
+        nombre: 'Camiseta basica gris',
+        categoria: 'Hombre / Camisetas',
+        precio: '25,00 EUR',
+        imagen: 'assets/img/producto-201.jpg',
+        descripcion: 'Camiseta de algodon peinado con cuello reforzado y fit regular.',
+        tallas: ['S', 'M', 'L', 'XL']
+      },
+      {
+        id: 'producto-202',
+        nombre: 'Camisa a rayas azul',
+        categoria: 'Hombre / Camisas',
+        precio: '55,00 EUR',
+        imagen: 'assets/img/producto-202.jpg',
+        descripcion: 'Camisa de popelin con patron de rayas finas y cuello italiano.',
+        tallas: ['S', 'M', 'L', 'XL']
+      },
+      {
+        id: 'producto-203',
+        nombre: 'Pantalon vaquero negro',
+        categoria: 'Mujer / Pantalones',
+        precio: '65,00 EUR',
+        imagen: 'assets/img/producto-203.jpg',
+        descripcion: 'Vaquero negro de talle alto con pierna recta y lavado suave.',
+        tallas: ['34', '36', '38', '40', '42']
+      },
+      {
+        id: 'producto-204',
+        nombre: 'Botines de cuero marron',
+        categoria: 'Mujer / Calzado',
+        precio: '99,00 EUR',
+        imagen: 'assets/img/producto-204.jpg',
+        descripcion: 'Botines de cuero con tacon ancho y plantilla acolchada.',
+        tallas: ['36', '37', '38', '39', '40']
+      }
+    ];
+
+    const imagen = document.getElementById('producto-imagen');
+    const categoria = document.getElementById('producto-categoria');
+    const titulo = document.getElementById('producto-titulo');
+    const codigo = document.getElementById('producto-codigo');
+    const precio = document.getElementById('producto-precio');
+    const descripcion = document.getElementById('producto-descripcion');
+    const tallas = document.getElementById('tallas');
+    const miniaturas = document.getElementById('miniaturas');
+    const listaEnlaces = document.getElementById('lista-enlaces');
+    const rejilla = document.getElementById('rejilla-productos');
+
+    function productoPorHash() {
+      const hash = window.location.hash.replace('#', '');
+      return productos.find((item) => item.id === hash) || productos[0];
+    }
+
+    function renderTallas(lista) {
+      tallas.innerHTML = lista
+        .map((talla) => '<button type="button" class="min-w-10 border border-gris/70 px-3 py-2 text-xs uppercase tracking-widest transition-colors hover:border-rouge hover:text-rouge">' + talla + '</button>')
+        .join('');
+    }
+
+    function renderMiniaturas(actualId) {
+      const destacadas = productos.slice(0, 3);
+      miniaturas.innerHTML = destacadas
+        .map((item) => {
+          const borde = item.id === actualId ? 'border-rouge' : 'border-gris/50';
+          return '<a href="#' + item.id + '" class="block border ' + borde + '"><img src="' + item.imagen + '" alt="' + item.nombre + '" class="aspect-[4/5] w-full object-cover"></a>';
+        })
+        .join('');
+    }
+
+    function renderListaEnlaces(actualId) {
+      listaEnlaces.innerHTML = productos
+        .map((item) => {
+          const activa = item.id === actualId ? 'text-rouge font-medium' : 'text-noir/80';
+          return '<a href="#' + item.id + '" class="transition-colors hover:text-rouge ' + activa + '">' + item.nombre + '</a>';
+        })
+        .join('');
+    }
+
+    function renderRejilla() {
+      rejilla.innerHTML = productos
+        .map((item) => {
+          return [
+            '<article class="group">',
+            '<a href="#' + item.id + '" class="block">',
+            '<div class="aspect-[3/4] overflow-hidden bg-gris/30">',
+            '<img src="' + item.imagen + '" alt="' + item.nombre + '" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">',
+            '</div>',
+            '<h3 class="mt-3 font-serif text-lg">' + item.nombre + '</h3>',
+            '<p class="text-sm text-noir/60">' + item.precio + '</p>',
+            '</a>',
+            '</article>'
+          ].join('');
+        })
+        .join('');
+    }
+
+    function renderProductoActual() {
+      const actual = productoPorHash();
+
+      imagen.src = actual.imagen;
+      imagen.alt = actual.nombre;
+      categoria.textContent = actual.categoria;
+      titulo.textContent = actual.nombre;
+      codigo.textContent = actual.id.toUpperCase();
+      precio.textContent = actual.precio;
+      descripcion.textContent = actual.descripcion;
+
+      document.title = 'Nombre Marca | ' + actual.nombre;
+      renderTallas(actual.tallas);
+      renderMiniaturas(actual.id);
+      renderListaEnlaces(actual.id);
+    }
+
+    window.addEventListener('hashchange', renderProductoActual);
+    renderRejilla();
+    renderProductoActual();
+  </script>
+</body>
+</html>
