@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 590 120" role="img" aria-labelledby="velune-wordmark-title velune-wordmark-description">
+  <title id="velune-wordmark-title">Logotipo tipográfico de VELUNE</title>
+  <desc id="velune-wordmark-description">
+    Nombre VELUNE dibujado mediante trazados vectoriales de alto contraste y espaciado editorial.
+  </desc>
+
+  <g id="velune-wordmark" transform="translate(16 13)" fill="none" stroke="#171315" stroke-width="4.2" stroke-linecap="square" stroke-linejoin="miter">
+    <!-- V -->
+    <path d="M0 0 L28 92 L56 0"></path>
+
+    <!-- E -->
+    <path d="M100 0 H150 M100 0 V92 M100 46 H141 M100 92 H150"></path>
+
+    <!-- L -->
+    <path d="M194 0 V92 H246"></path>
+
+    <!-- U -->
+    <path d="M290 0 V61 C290 83 301 94 319 94 C337 94 348 83 348 61 V0"></path>
+
+    <!-- N -->
+    <path d="M396 92 V0 L456 92 V0"></path>
+
+    <!-- E -->
+    <path d="M504 0 H554 M504 0 V92 M504 46 H545 M504 92 H554"></path>
+  </g>
+</svg>
