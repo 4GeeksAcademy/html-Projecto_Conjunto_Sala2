@@ -28,10 +28,13 @@ def serve_dir_directory_index():
 # Serving any other image
 @app.route('/<path:path>', methods=['GET'])
 def serve_any_other_file(path):
-    if not os.path.isfile(os.path.join(static_file_dir, path)):
-        path = os.path.join(path, 'index.html')
-    response = send_from_directory(static_file_dir, path)
-    response.cache_control.max_age = 0 # avoid cache memory
-    return response
+    # If the path is a file that exists, serve it directly
+    full_path = os.path.join(static_file_dir, path)
+    if os.path.isfile(full_path):
+        response = send_from_directory(static_file_dir, path)
+        response.cache_control.max_age = 0  # avoid cache memory
+        return response
+    # Otherwise, it's a SPA route — serve index.html so client-side routing works
+    return send_from_directory(static_file_dir, 'index.html')
 
 app.run(host='0.0.0.0',port=3000, debug=True, extra_files=['./',])
